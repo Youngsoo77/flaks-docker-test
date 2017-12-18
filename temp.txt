@@ -1,0 +1,4 @@
+redis-cli -p 6379 info server | egrep "process_id|tcp_port|config_file"
+
+
+CELERY_LOG_FILE="/var/log/celery/%N.log"
