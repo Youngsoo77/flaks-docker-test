@@ -68,9 +68,8 @@ RUN { \
         && echo '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/mysql/conf.d/docker.cnf
 
 VOLUME ["/var/lib/mysql"]
-
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r redis && useradd -r -g redis redis
+RUN addgroup -S redis && adduser -S -G redis redis
 
 # grab su-exec for easy step-down from root
 RUN apk add --no-cache 'su-exec>=0.2'

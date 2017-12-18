@@ -197,8 +197,6 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 	fi
 fi
 
-exec "$@"
-
 # first arg is `-f` or `--some-option`
 # or first arg is `something.conf`
 if [ "${1#-}" != "$1" ] || [ "${1%.conf}" != "$1" ]; then
@@ -211,5 +209,4 @@ if [ "$1" = 'redis-server' -a "$(id -u)" = '0' ]; then
 	exec su-exec redis "$0" "$@"
 fi
 
-#!/bin/sh
-set -e
+exec "$@"
