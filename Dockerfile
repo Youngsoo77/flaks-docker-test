@@ -70,7 +70,9 @@ RUN { \
 VOLUME ["/var/lib/mysql"]
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r redis && useradd -r -g redis redis
+RUN groupadd -r redis \
+  && useradd -r -g redis redis \
+  && mkdir /home/redis.d/data
 
 # grab gosu for easy step-down from root
 # https://github.com/tianon/gosu/releases
@@ -135,7 +137,7 @@ RUN set -ex; \
     \
     apt-get purge -y --auto-remove $buildDeps
 
-RUN mkdir /home/redis.d/data && chown redis:redis /home/redis.d/data
+RUN chown redis:redis /home/redis.d/data
 
 VOLUME ["/home/redis.d/data"]
 
