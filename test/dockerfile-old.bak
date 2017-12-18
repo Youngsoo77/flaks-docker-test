@@ -1,0 +1,26 @@
+FROM python:3.4
+
+RUN apt-get update
+
+RUN apt-get -y upgrade
+
+RUN groupadd -r gitmostwanted \
+  && useradd -r -g gitmostwanted gitmostwanted \
+  && mkdir /opt/gitmostwanted
+
+RUN apt-get install -y vim \
+  && apt-get install -y git
+
+WORKDIR /opt/gitmostwanted
+
+VOLUME ["/opt/gitmostwanted"]
+
+ADD requirements.txt ./
+ADD hello.py ./
+
+ENV PYTHONPATH /opt
+
+RUN pip install -U pip \
+  && pip install -U setuptools \
+  && pip install -r requirements.txt \
+  && pip install --upgrade celery[redis]
