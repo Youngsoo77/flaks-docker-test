@@ -72,6 +72,7 @@ VOLUME ["/var/lib/mysql"]
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r redis \
   && useradd -r -g redis redis \
+  && mkdir /home/redis.d \
   && mkdir /home/redis.d/data
 
 # grab gosu for easy step-down from root
@@ -151,6 +152,7 @@ CMD ["mysqld"]
 
 RUN groupadd -r gitmostwanted \
   && useradd -r -g gitmostwanted gitmostwanted \
+  && mkdir /home/osstt.prod \
   && mkdir /home/osstt.prod/gitmostwanted
 
 EXPOSE 6379
